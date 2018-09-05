@@ -21,7 +21,7 @@ fccTestingRoutes(app);
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 .then(() => console.log("Connected to mongodb server"))
 .catch((err) => console.log("Cannot connect to mongodb server"));
     
