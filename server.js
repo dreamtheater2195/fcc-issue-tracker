@@ -12,6 +12,7 @@ var mongo       = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var app = express();
 
+
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(cors({origin: '*'})); //For FCC testing purposes only
 app.use(bodyParser.json());
@@ -21,7 +22,7 @@ fccTestingRoutes(app);
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 .then(() => console.log("Connected to mongodb server"))
 .catch((err) => console.log("Cannot connect to mongodb server"));
     

@@ -41,7 +41,9 @@ module.exports = function (app, db) {
         if (!project) {
           return res.status(400).send({ error: 'Project not found'});
         }
-        const issues = await Issue.find(req.query);
+        const query = {...req.query};
+        query.projectId = project._id;
+        const issues = await Issue.find(query);
         res.status(200).send({issues});
       } catch (err) {
         res.status(400).send(err);
@@ -54,8 +56,7 @@ module.exports = function (app, db) {
       try {
         const project = await Project.findOne({name: projectName});
         if (!project) {
-          const newProject = { name: projectName };
-          const { _id } = await newProject.save();
+          const { _id } = await Project.create({ name: projectName });
           projectId = _id;
         } else {
           projectId = project._id;
